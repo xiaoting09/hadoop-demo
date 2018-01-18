@@ -1,0 +1,26 @@
+allprojects {
+    group = 'com.xiao.hadoop'
+    version = '1.0.0-SNAPSHOT'
+    ext {
+
+    }
+    tasks.withType(AbstractCompile) {
+        options.encoding = "UTF-8"
+    }
+}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        jcenter()
+        mavenCentral()
+    }
+    task initdirs << {
+        sourceSets*.allSource.srcDirs.flatten()*.mkdirs()
+        //webAppDir.mkdirs()
+    }
+}
